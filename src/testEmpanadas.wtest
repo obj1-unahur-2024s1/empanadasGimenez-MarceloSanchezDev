@@ -1,0 +1,36 @@
+import example.*
+describe "testeamos el gasto de dinero de galvan"{
+	method initialize(){
+		galvan.gastar(40000)
+	}	
+	test "Galván gasta 40000, totalDeuda() debe ser 40000, totalDinero() debe ser 0."{
+		assert.equals(0,galvan.totalDinero())
+		assert.equals(40000,galvan.totalDeuda())
+	}
+	test "Galván gasta otros 80000, totalDeuda() pasa a 120000, totalDinero() sigue en 0."{
+		galvan.gastar(80000)
+		assert.equals(0,galvan.totalDinero())
+		assert.equals(120000,galvan.totalDeuda())
+	}
+	test "Galván cobra, con los 150000 que recibe paga toda su deuda y le sobran 30000 pesos. Por lo tanto, totalDeuda() debe ser 0, y totalDinero() debe ser 30000." {
+		galvan.gastar(80000)
+		gimenez.pagarA(galvan)
+		assert.equals(30000,galvan.totalDinero())
+		assert.equals(0,galvan.totalDeuda())
+	}
+	test "Galván gasta 250000, cubre 30000 con el dinero que tiene, el resto es deuda. totalDeuda() queda en 220000, totalDinero() en 0."{
+		galvan.gastar(80000)
+		gimenez.pagarA(galvan)
+		galvan.gastar(250000)
+		assert.equals(0,galvan.totalDinero())
+		assert.equals(220000,galvan.totalDeuda())
+	}
+	test "Galván cobra, tiene que dedicar los 150000 a pagar deudas, y no le alcanza. Ahora, totalDeuda() pasa a 70000, y totalDinero() a 0."{
+		galvan.gastar(80000)
+		gimenez.pagarA(galvan)
+		galvan.gastar(250000)
+		gimenez.pagarA(galvan)
+		assert.equals(0,galvan.totalDinero())
+		assert.equals(70000,galvan.totalDeuda())
+	}
+}

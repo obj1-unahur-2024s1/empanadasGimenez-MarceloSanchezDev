@@ -37,8 +37,8 @@ object galvan{
 }
 object baigorria{
 	var property totalCobrado = 0
-	var property sueldo = 150 * empanadasVendidas
-	var property empanadasVendidas = 2
+	const property sueldo = 150 * empanadasVendidas
+	var empanadasVendidas = 2
 	method venderEmpandas(){
 		empanadasVendidas += 1
 	}
